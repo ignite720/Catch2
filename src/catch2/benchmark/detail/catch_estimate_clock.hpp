@@ -59,16 +59,16 @@ namespace Catch {
                     .iterations;
             }
             template <typename Clock>
-            EnvironmentEstimate<FloatDuration<Clock>> estimate_clock_resolution(int iterations) {
+            EnvironmentEstimate estimate_clock_resolution(int iterations) {
                 auto r = run_for_at_least<Clock>(std::chrono::duration_cast<ClockDuration<Clock>>(clock_resolution_estimation_time), iterations, &resolution<Clock>)
                     .result;
                 return {
-                    FloatDuration<Clock>(mean(r.data(), r.data() + r.size())),
+                    FDuration(mean(r.data(), r.data() + r.size())),
                     classify_outliers(r.data(), r.data() + r.size()),
                 };
             }
             template <typename Clock>
-            EnvironmentEstimate<FloatDuration<Clock>> estimate_clock_cost(FloatDuration<Clock> resolution) {
+            EnvironmentEstimate estimate_clock_cost(FloatDuration<Clock> resolution) {
                 auto time_limit = (std::min)(
                     resolution * clock_cost_estimation_tick_limit,
                     FloatDuration<Clock>(clock_cost_estimation_time_limit));
@@ -92,7 +92,7 @@ namespace Catch {
                             .count() ) );
                 }
                 return {
-                    FloatDuration<Clock>(mean(times.data(), times.data() + times.size())),
+                    FDuration(mean(times.data(), times.data() + times.size())),
                     classify_outliers(times.data(), times.data() + times.size()),
                 };
             }
