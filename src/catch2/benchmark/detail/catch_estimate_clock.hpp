@@ -98,12 +98,12 @@ namespace Catch {
             }
 
             template <typename Clock>
-            Environment<FloatDuration<Clock>> measure_environment() {
+            Environment measure_environment() {
 #if defined(__clang__)
 #    pragma clang diagnostic push
 #    pragma clang diagnostic ignored "-Wexit-time-destructors"
 #endif
-                static Catch::Detail::unique_ptr<Environment<FloatDuration<Clock>>> env;
+                static Catch::Detail::unique_ptr<Environment> env;
 #if defined(__clang__)
 #    pragma clang diagnostic pop
 #endif
@@ -115,7 +115,7 @@ namespace Catch {
                 auto resolution = Detail::estimate_clock_resolution<Clock>(iters);
                 auto cost = Detail::estimate_clock_cost<Clock>(resolution.mean);
 
-                env = Catch::Detail::make_unique<Environment<FloatDuration<Clock>>>( Environment<FloatDuration<Clock>>{resolution, cost} );
+                env = Catch::Detail::make_unique<Environment>( Environment{resolution, cost} );
                 return *env;
             }
         } // namespace Detail

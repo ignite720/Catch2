@@ -47,7 +47,7 @@ namespace Catch {
                 : fun(CATCH_MOVE(func)), name(CATCH_MOVE(benchmarkName)) {}
 
             template <typename Clock>
-            ExecutionPlan<FloatDuration<Clock>> prepare(const IConfig &cfg, Environment<FloatDuration<Clock>> env) const {
+            ExecutionPlan<FloatDuration<Clock>> prepare(const IConfig &cfg, Environment env) const {
                 auto min_time = env.clock_resolution.mean * Detail::minimum_ticks;
                 auto run_time = std::max(min_time, std::chrono::duration_cast<decltype(min_time)>(cfg.benchmarkWarmupTime()));
                 auto&& test = Detail::run_for_at_least<Clock>(std::chrono::duration_cast<ClockDuration<Clock>>(run_time), 1, fun);
@@ -83,7 +83,7 @@ namespace Catch {
                         return plan.template run<Clock>(*cfg, env);
                     });
 
-                    auto analysis = Detail::analyse(*cfg, env, samples.begin(), samples.end());
+                    auto analysis = Detail::analyse(*cfg, samples.begin(), samples.end());
                     BenchmarkStats<FloatDuration<Clock>> stats{ CATCH_MOVE(info), CATCH_MOVE(analysis.samples), analysis.mean, analysis.standard_deviation, analysis.outliers, analysis.outlier_variance };
                     getResultCapture().benchmarkEnded(stats);
                 } CATCH_CATCH_ANON (TestFailureException const&) {

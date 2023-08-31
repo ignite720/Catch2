@@ -35,7 +35,7 @@ namespace Catch {
             }
 
             template <typename Clock>
-            std::vector<FloatDuration<Clock>> run(const IConfig &cfg, Environment<FloatDuration<Clock>> env) const {
+            std::vector<FloatDuration<Clock>> run(const IConfig &cfg, Environment env) const {
                 // warmup a bit
                 Detail::run_for_at_least<Clock>(
                     std::chrono::duration_cast<ClockDuration<Clock>>( warmup_time ),

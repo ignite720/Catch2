@@ -19,7 +19,6 @@ namespace Catch {
             FDuration mean;
             OutlierClassification outliers;
         };
-        template <typename Clock>
         struct Environment {
             EnvironmentEstimate clock_resolution;
             EnvironmentEstimate clock_cost;

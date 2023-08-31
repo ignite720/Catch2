@@ -10,7 +10,7 @@
 #ifndef CATCH_ANALYSE_HPP_INCLUDED
 #define CATCH_ANALYSE_HPP_INCLUDED
 
-#include <catch2/benchmark/catch_environment.hpp>
+#include <catch2/benchmark/catch_clock.hpp>
 #include <catch2/benchmark/catch_sample_analysis.hpp>
 #include <catch2/benchmark/detail/catch_stats.hpp>
 #include <catch2/interfaces/catch_interfaces_config.hpp>
@@ -21,8 +21,8 @@
 namespace Catch {
     namespace Benchmark {
         namespace Detail {
-            template <typename Duration, typename Iterator>
-            SampleAnalysis<Duration> analyse(const IConfig &cfg, Environment<Duration>, Iterator first, Iterator last) {
+            template <typename Iterator>
+            SampleAnalysis<FDuration> analyse(const IConfig &cfg, Iterator first, Iterator last) {
                 if (!cfg.benchmarkNoAnalysis()) {
                     std::vector<double> samples;
                     samples.reserve(static_cast<size_t>(last - first));
@@ -39,17 +39,17 @@ namespace Catch {
                         samples.data(), samples.data() + samples.size() );
 
                     auto wrap_estimate = [](Estimate<double> e) {
-                        return Estimate<Duration> {
-                            Duration(e.point),
-                                Duration(e.lower_bound),
-                                Duration(e.upper_bound),
+                        return Estimate<FDuration> {
+                            FDuration(e.point),
+                                FDuration(e.lower_bound),
+                                FDuration(e.upper_bound),
                                 e.confidence_interval,
                         };
                     };
-                    std::vector<Duration> samples2;
+                    std::vector<FDuration> samples2;
                     samples2.reserve(samples.size());
                     for (auto s : samples) {
-                        samples2.push_back( Duration( s ) );
+                        samples2.push_back( FDuration( s ) );
                     }
 
                     return {
@@ -60,21 +60,21 @@ namespace Catch {
                         analysis.outlier_variance,
                     };
                 } else {
-                    std::vector<Duration> samples;
+                    std::vector<FDuration> samples;
                     samples.reserve(static_cast<size_t>(last - first));
 
-                    Duration mean = Duration(0);
+                    FDuration mean = FDuration(0);
                     int i = 0;
                     for (auto it = first; it < last; ++it, ++i) {
-                        samples.push_back(Duration(*it));
-                        mean += Duration(*it);
+                        samples.push_back(FDuration(*it));
+                        mean += FDuration(*it);
                     }
                     mean /= i;
 
                     return {
                         CATCH_MOVE(samples),
-                        Estimate<Duration>{mean, mean, mean, 0.0},
-                        Estimate<Duration>{Duration(0), Duration(0), Duration(0), 0.0},
+                        Estimate<FDuration>{mean, mean, mean, 0.0},
+                        Estimate<FDuration>{FDuration(0), FDuration(0), FDuration(0), 0.0},
                         OutlierClassification{},
                         0.0
                     };
