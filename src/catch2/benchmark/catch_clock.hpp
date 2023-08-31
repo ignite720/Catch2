@@ -15,6 +15,9 @@
 
 namespace Catch {
     namespace Benchmark {
+        using IDuration = std::chrono::nanoseconds;
+        using FDuration = std::chrono::duration<double, std::nano>;
+
         template <typename Clock>
         using ClockDuration = typename Clock::duration;
         template <typename Clock>
