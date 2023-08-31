@@ -24,15 +24,6 @@ namespace Catch {
         using TimePoint = typename Clock::time_point;
 
         using default_clock = std::chrono::steady_clock;
-
-        template <typename Clock>
-        struct now {
-            TimePoint<Clock> operator()() const {
-                return Clock::now();
-            }
-        };
-
-        using fp_seconds = std::chrono::duration<double, std::ratio<1>>;
     } // namespace Benchmark
 } // namespace Catch
 

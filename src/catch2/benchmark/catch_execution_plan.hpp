@@ -37,7 +37,11 @@ namespace Catch {
             template <typename Clock>
             std::vector<FloatDuration<Clock>> run(const IConfig &cfg, Environment<FloatDuration<Clock>> env) const {
                 // warmup a bit
-                Detail::run_for_at_least<Clock>(std::chrono::duration_cast<ClockDuration<Clock>>(warmup_time), warmup_iterations, Detail::repeat(now<Clock>{}));
+                Detail::run_for_at_least<Clock>(
+                    std::chrono::duration_cast<ClockDuration<Clock>>( warmup_time ),
+                    warmup_iterations,
+                    Detail::repeat( []() { return Clock::now(); } )
+                );
 
                 std::vector<FloatDuration<Clock>> times;
                 const auto num_samples = cfg.benchmarkSamples();
