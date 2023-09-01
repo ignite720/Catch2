@@ -32,7 +32,7 @@ namespace Catch {
             std::vector<FloatDuration<Clock>> run(const IConfig &cfg, Environment env) const {
                 // warmup a bit
                 Detail::run_for_at_least<Clock>(
-                    std::chrono::duration_cast<ClockDuration<Clock>>( warmup_time ),
+                    std::chrono::duration_cast<IDuration>( warmup_time ),
                     warmup_iterations,
                     Detail::repeat( []() { return Clock::now(); } )
                 );

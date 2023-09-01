@@ -44,7 +44,7 @@ namespace Catch {
 
             template <typename Clock, typename Fun>
             TimingOf<Fun, run_for_at_least_argument_t<Clock, Fun>>
-                run_for_at_least(ClockDuration<Clock> how_long,
+                run_for_at_least(IDuration how_long,
                                  const int initial_iterations,
                                  Fun&& fun) {
                 auto iters = initial_iterations;
