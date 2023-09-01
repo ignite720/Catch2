@@ -22,7 +22,7 @@ namespace Catch {
     namespace Benchmark {
         namespace Detail {
             template <typename Iterator>
-            SampleAnalysis<FDuration> analyse(const IConfig &cfg, Iterator first, Iterator last) {
+            SampleAnalysis analyse(const IConfig &cfg, Iterator first, Iterator last) {
                 if (!cfg.benchmarkNoAnalysis()) {
                     std::vector<double> samples;
                     samples.reserve(static_cast<size_t>(last - first));
@@ -71,7 +71,7 @@ namespace Catch {
                     }
                     mean /= i;
 
-                    return SampleAnalysis<FDuration>{
+                    return SampleAnalysis{
                         CATCH_MOVE(samples),
                         Estimate<FDuration>{ mean, mean, mean, 0.0 },
                         Estimate<FDuration>{ FDuration( 0 ),
