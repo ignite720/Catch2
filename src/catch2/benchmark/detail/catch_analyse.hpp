@@ -71,10 +71,13 @@ namespace Catch {
                     }
                     mean /= i;
 
-                    return {
+                    return SampleAnalysis<FDuration>{
                         CATCH_MOVE(samples),
-                        Estimate<FDuration>{mean, mean, mean, 0.0},
-                        Estimate<FDuration>{FDuration(0), FDuration(0), FDuration(0), 0.0},
+                        Estimate<FDuration>{ mean, mean, mean, 0.0 },
+                        Estimate<FDuration>{ FDuration( 0 ),
+                                             FDuration( 0 ),
+                                             FDuration( 0 ),
+                                             0.0 },
                         OutlierClassification{},
                         0.0
                     };

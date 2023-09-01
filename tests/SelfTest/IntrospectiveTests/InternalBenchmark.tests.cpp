@@ -293,7 +293,6 @@ TEST_CASE("analyse", "[approvals][benchmark]") {
     Catch::Config config{data};
 
     using FDuration = Catch::Benchmark::FDuration;
-
     std::vector<FDuration> samples(99);
     for (size_t i = 0; i < samples.size(); ++i) {
         samples[i] = FDuration(23 + (i % 3 - 1));
@@ -333,7 +332,6 @@ TEST_CASE("analyse no analysis", "[benchmark]") {
     Catch::Config config{ data };
 
     using FDuration = Catch::Benchmark::FDuration;
-
     std::vector<FDuration> samples(99);
     for (size_t i = 0; i < samples.size(); ++i) {
         samples[i] = FDuration(23 + (i % 3 - 1));
