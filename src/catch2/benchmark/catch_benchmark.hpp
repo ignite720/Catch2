@@ -85,7 +85,7 @@ namespace Catch {
                         return plan.template run<Clock>(*cfg, env);
                     });
 
-                    auto analysis = Detail::analyse(*cfg, samples.begin(), samples.end());
+                    auto analysis = Detail::analyse(*cfg, samples.data(), samples.data() + samples.size());
                     BenchmarkStats<> stats{ CATCH_MOVE(info), CATCH_MOVE(analysis.samples), analysis.mean, analysis.standard_deviation, analysis.outliers, analysis.outlier_variance };
                     getResultCapture().benchmarkEnded(stats);
                 } CATCH_CATCH_ANON (TestFailureException const&) {

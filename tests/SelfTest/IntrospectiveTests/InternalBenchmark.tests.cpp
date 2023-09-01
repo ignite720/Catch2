@@ -298,7 +298,7 @@ TEST_CASE("analyse", "[approvals][benchmark]") {
         samples[i] = FDuration(23 + (i % 3 - 1));
     }
 
-    auto analysis = Catch::Benchmark::Detail::analyse(config, samples.begin(), samples.end());
+    auto analysis = Catch::Benchmark::Detail::analyse(config, samples.data(), samples.data() + samples.size());
     CHECK( analysis.mean.point.count() == 23 );
     CHECK( analysis.mean.lower_bound.count() < 23 );
     CHECK(analysis.mean.lower_bound.count() > 22);
@@ -337,7 +337,7 @@ TEST_CASE("analyse no analysis", "[benchmark]") {
         samples[i] = FDuration(23 + (i % 3 - 1));
     }
 
-    auto analysis = Catch::Benchmark::Detail::analyse(config, samples.begin(), samples.end());
+    auto analysis = Catch::Benchmark::Detail::analyse(config, samples.data(), samples.data() + samples.size());
     CHECK(analysis.mean.point.count() == 23);
     CHECK(analysis.mean.lower_bound.count() == 23);
     CHECK(analysis.mean.upper_bound.count() == 23);

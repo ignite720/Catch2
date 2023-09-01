@@ -21,8 +21,7 @@
 namespace Catch {
     namespace Benchmark {
         namespace Detail {
-            template <typename Iterator>
-            SampleAnalysis analyse(const IConfig &cfg, Iterator first, Iterator last) {
+            inline SampleAnalysis analyse(const IConfig &cfg, FDuration* first, FDuration* last) {
                 if (!cfg.benchmarkNoAnalysis()) {
                     std::vector<double> samples;
                     samples.reserve(static_cast<size_t>(last - first));
