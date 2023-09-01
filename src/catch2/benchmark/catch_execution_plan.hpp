@@ -21,18 +21,12 @@
 
 namespace Catch {
     namespace Benchmark {
-        template <typename Duration>
         struct ExecutionPlan {
             int iterations_per_sample;
-            Duration estimated_duration;
+            FDuration estimated_duration;
             Detail::BenchmarkFunction benchmark;
-            Duration warmup_time;
+            FDuration warmup_time;
             int warmup_iterations;
-
-            template <typename Duration2>
-            operator ExecutionPlan<Duration2>() const {
-                return { iterations_per_sample, estimated_duration, benchmark, warmup_time, warmup_iterations };
-            }
 
             template <typename Clock>
             std::vector<FloatDuration<Clock>> run(const IConfig &cfg, Environment env) const {
