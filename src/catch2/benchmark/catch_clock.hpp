@@ -11,15 +11,11 @@
 #define CATCH_CLOCK_HPP_INCLUDED
 
 #include <chrono>
-#include <ratio>
 
 namespace Catch {
     namespace Benchmark {
         using IDuration = std::chrono::nanoseconds;
         using FDuration = std::chrono::duration<double, std::nano>;
-
-        template <typename Clock>
-        using FloatDuration = std::chrono::duration<double, typename Clock::period>;
 
         template <typename Clock>
         using TimePoint = typename Clock::time_point;

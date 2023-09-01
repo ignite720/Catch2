@@ -29,7 +29,7 @@ namespace Catch {
             int warmup_iterations;
 
             template <typename Clock>
-            std::vector<FloatDuration<Clock>> run(const IConfig &cfg, Environment env) const {
+            std::vector<FDuration> run(const IConfig &cfg, Environment env) const {
                 // warmup a bit
                 Detail::run_for_at_least<Clock>(
                     std::chrono::duration_cast<IDuration>( warmup_time ),
@@ -37,15 +37,15 @@ namespace Catch {
                     Detail::repeat( []() { return Clock::now(); } )
                 );
 
-                std::vector<FloatDuration<Clock>> times;
+                std::vector<FDuration> times;
                 const auto num_samples = cfg.benchmarkSamples();
                 times.reserve( num_samples );
                 for ( size_t i = 0; i < num_samples; ++i ) {
                     Detail::ChronometerModel<Clock> model;
                     this->benchmark( Chronometer( model, iterations_per_sample ) );
                     auto sample_time = model.elapsed() - env.clock_cost.mean;
-                    if ( sample_time < FloatDuration<Clock>::zero() ) {
-                        sample_time = FloatDuration<Clock>::zero();
+                    if ( sample_time < FDuration::zero() ) {
+                        sample_time = FDuration::zero();
                     }
                     times.push_back(sample_time / iterations_per_sample);
                 }
