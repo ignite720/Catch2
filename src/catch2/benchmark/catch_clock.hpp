@@ -19,8 +19,6 @@ namespace Catch {
         using FDuration = std::chrono::duration<double, std::nano>;
 
         template <typename Clock>
-        using ClockDuration = typename Clock::duration;
-        template <typename Clock>
         using FloatDuration = std::chrono::duration<double, typename Clock::period>;
 
         template <typename Clock>
