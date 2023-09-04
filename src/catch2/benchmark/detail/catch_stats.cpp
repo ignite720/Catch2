@@ -279,7 +279,7 @@ namespace Catch {
 
             double normal_cdf( double x ) {
                 return std::erfc( -x / std::sqrt( 2.0 ) ) / 2.0;
-            };
+            }
 
             double erfc_inv(double x) {
                 return erf_inv(1.0 - x);
